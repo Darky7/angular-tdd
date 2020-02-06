@@ -14,10 +14,18 @@ describe('AppComponent', () => {
     }).compileComponents();
   }));
 
+  /**
+
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
+  });
+
+  it(`should have as title 'angular-tdd'`, () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app.title).toEqual('angular-tdd');
   });
 
   it('should render title', () => {
@@ -26,4 +34,7 @@ describe('AppComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('.content span').textContent).toContain('angular-tdd app is running!');
   });
+
+  */
+ 
 });

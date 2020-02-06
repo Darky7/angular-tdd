@@ -10,9 +10,13 @@ import { AuthorsService, Author } from './../authors.service';
 })
 export class AuthorsComponent {
   public authors: DocumentCollection<Author>;
-
+  
   public constructor(private authorsService: AuthorsService) {
-      authorsService
+    this.getData(authorsService);
+  }
+
+  public getData(authorsService: AuthorsService){
+    authorsService
           .all({
               // include: ['books', 'photos'],
           })
