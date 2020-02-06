@@ -1,15 +1,21 @@
 import { Component, OnInit } from '@angular/core';
+import { DocumentCollection } from 'ngx-jsonapi';
+import { AuthorsService, Author } from './../authors.service';
+
 
 @Component({
   selector: 'app-authors',
   templateUrl: './authors.component.html',
   styleUrls: ['./authors.component.css']
 })
-export class AuthorsComponent implements OnInit {
+export class AuthorsComponent {
+  public authors: DocumentCollection<Author>;
 
-  constructor() { }
-
-  ngOnInit() {
+  public constructor(private authorsService: AuthorsService) {
+      authorsService
+          .all({
+              // include: ['books', 'photos'],
+          })
+          .subscribe(authors => (this.authors = authors));
   }
-
 }
