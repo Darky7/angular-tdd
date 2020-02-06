@@ -1,11 +1,21 @@
+import Pretender from 'pretender';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { AuthorsComponent } from './authors.component';
-
 import { AuthorsService } from '../authors.service';
 import { NgxJsonapiModule } from 'ngx-jsonapi';
 
 import { RouterTestingModule } from '@angular/router/testing';
+
+/**
+const server = new Pretender(function() {
+  this.get('//jsonapiplayground.reyesoft.com/v2/', request => {
+    let all =  JSON.stringify(require('../../../e2e/author.json'));    
+    console.log(all)
+    return [200, {"Content-Type": "application/json"}, all]
+  });
+});
+*/
 
 describe('AuthorsComponent', () => {
   
@@ -35,7 +45,7 @@ describe('AuthorsComponent', () => {
     component = fixture.componentInstance;
     setTimeout(()=>{
       component.getData(authorsService);
-    }, 3000);    
+    }, 10000);    
     fixture.detectChanges();
   }));
 
@@ -50,7 +60,7 @@ describe('AuthorsComponent', () => {
   });
 
   it('show all the authors', async () =>  {           
-    const authorElements = fixture.debugElement.queryAll(By.css('.authors'));
+    const authorElements = fixture.debugElement.queryAll(By.css('.author'));
     expect(authorElements.length).toBeGreaterThan(3);
   });
 
