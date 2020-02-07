@@ -22,6 +22,7 @@ describe('AuthorsComponent', () => {
   let component: AuthorsComponent;
   let fixture: ComponentFixture<AuthorsComponent>;
   let authorsService: AuthorsService;
+  authorsService = null;
   
   beforeEach(async(async () => {
     TestBed.configureTestingModule({
