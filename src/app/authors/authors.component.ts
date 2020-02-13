@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DocumentCollection } from 'ngx-jsonapi';
-import { AuthorsService, Author } from './../authors.service';
+import { AuthorsService, Author } from '../servcies/authors.service';
+import { ActivatedRoute } from '@angular/router';
+import { BooksService } from '../servcies/books.service'
 
 
 @Component({
@@ -11,15 +13,25 @@ import { AuthorsService, Author } from './../authors.service';
 export class AuthorsComponent {
   public authors: DocumentCollection<Author>;
   
-  public constructor(private authorsService: AuthorsService) {
-    this.getData(authorsService);
+  public constructor(private route: ActivatedRoute, private authorsService: AuthorsService, booksService: BooksService) {
+    this.getData(route, authorsService, booksService);
   }
 
-  public getData(authorsService: AuthorsService){
-    authorsService
+  public getData(route: ActivatedRoute, authorsService: AuthorsService, booksService: BooksService){
+    route.queryParams.subscribe(({ page }) => {
+      authorsService
           .all({
-              // include: ['books', 'photos'],
+              include: ['books'],
+              sort: ['name'],
+              page: { number: page || 1 },
+              ttl: 3600
           })
-          .subscribe(authors => (this.authors = authors));
+          .subscribe(
+              authors => {
+                  this.authors = authors;
+              },
+              error => console.error('Could not load authors :(', error)
+          );
+      });
   }
 }

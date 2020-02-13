@@ -1,10 +1,29 @@
-<main role="main" class="d-flex justify-content-center">
-    <div class="container">
-      <h1 class="mt-5">Authors</h1>
-      <p class="author" *ngFor="let author of authors.data; trackBy: authors.trackBy">
-        id: {{ author.id }} <br />
-        name: {{ author.attributes.name }} <br />
-        birth date: {{ author.attributes.date_of_birth | date }}    
-    </p>
-    </div>
-</main>
+<h3>Authors</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>BirthPlace</th>
+            <th>Date of birth</th>
+            <th>Date of dead</th>
+            <th>Books</th>
+        </tr>
+    </thead>
+    <tr *ngFor="let author of authors.data; trackBy: authors.trackBy">
+        <td>{{ author.id }}</td>
+        <td>
+            <a [routerLink]="['/authors', author.id]">{{ author.attributes.name }}</a>
+        </td>
+        <td>{{ author.attributes.birthplace }}</td>
+        <td>{{ author.attributes.date_of_birth | date }}</td>
+        <td>{{ author.attributes.date_of_death | date }}</td>        
+        <td *ngIf="author.relationships.books.data.length < 1" class="text-muted">-no books-</td>
+        <td *ngIf="author.relationships.books.data.length > 0">
+            <a [routerLink]="['/books', author.relationships.books.data[0].id]">{{ author.relationships.books.data[0].attributes.title }}</a>
+            <span *ngIf="author.relationships.books.data.length > 1">
+                and {{ author.relationships.books.data.length}} more...
+            </span>
+        </td>           
+    </tr>
+</table>

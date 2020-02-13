@@ -2,7 +2,7 @@ import Pretender from 'pretender';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { AuthorsComponent } from './authors.component';
-import { AuthorsService } from '../authors.service';
+import { AuthorsService } from '../servcies/authors.service';
 import { NgxJsonapiModule } from 'ngx-jsonapi';
 
 import { RouterTestingModule } from '@angular/router/testing';
